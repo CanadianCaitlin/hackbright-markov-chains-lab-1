@@ -46,14 +46,11 @@ def make_chains(text_string):
 
     text_string = text_string.split()
 
-    for i in range(len(text_string) - 2):
-        string_tups = (text_string[i], text_string[i + 1])
+    for i in range(len(text_string)-2):
+        string_tup = (text_string[i], text_string[i+1])
 
-        if string_tups not in chains:
-            chains[string_tups] = []
-            chains[string_tups].append(text_string[i+2])
-        elif string_tups in chains:
-            chains[string_tups].append(text_string[i+2])
+        chains[string_tup] = chains.get(string_tup, [])
+        chains[string_tup].append(text_string[i+2])
 
         # chains.get(string_tups,[])
         # chains[string_tups].append(text_string[i+2])
@@ -65,7 +62,7 @@ def make_chains(text_string):
     
     # for i in chains.items():
     #     print(i)
-    # print(chains)
+    print(chains)
     return chains
 
 
