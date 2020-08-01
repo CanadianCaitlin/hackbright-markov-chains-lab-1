@@ -69,6 +69,14 @@ def make_chains(text_string):
 def make_text(chains):
     """Return text from chains."""
 
+    # words is our empty list which will be printed as a string
+    # create a for loop; for i in key...
+    # add a random element from the list of values associated with that key
+    # append this value to words list
+    # take the last 2 words from that list
+    # then "convert" the identified value into the key to identify the next value
+    # keep looping until "KeyError"
+
     words = []
 
     # your code goes here
