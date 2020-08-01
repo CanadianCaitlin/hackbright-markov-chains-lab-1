@@ -82,14 +82,28 @@ def make_text(chains):
             #append random value to words list
     # keep looping until "KeyError"
 
-    words = []
+    # random.choice(<dictionary>.keys())
 
-    for key in chains:
-        word_one, word_2 = key
-        # words.append(word_one)
-        words.append(word_2)
-        random_value = chains[key]
-        words.append(choice(random_value))
+    words = []
+    dict_keys = [i for i in chains.keys()] #a list of all the dictionary keys
+    first_key = choice(dict_keys) #first key == a random key from the above list
+    word1, word2 = first_key #unpack
+    words.append(word1) 
+    words.append(word2)
+    words.append(choice(chains[first_key])) #append random value from that random key 
+    
+    #identify last 2 strings; see if they match a key in the dictionary
+            #choose random value from list of key values 
+            #append random value to words list
+
+
+    # if words == []:
+    #     for key in chains:
+    #         word_one, word_2 = key
+    #         # words.append(word_one)
+    #         words.append(word_2)
+    #         random_value = chains[key]
+    #         words.append(choice(random_value))
 
     return words
     # return " ".join(words)
