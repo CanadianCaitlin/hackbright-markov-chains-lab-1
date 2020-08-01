@@ -62,7 +62,7 @@ def make_chains(text_string):
     
     # for i in chains.items():
     #     print(i)
-    print(chains)
+    # print(chains)
     return chains
 
 
@@ -70,18 +70,29 @@ def make_text(chains):
     """Return text from chains."""
 
     # words is our empty list which will be printed as a string
-    # create a for loop; for i in key...
-    # add a random element from the list of values associated with that key
-    # append this value to words list
-    # take the last 2 words from that list
-    # then "convert" the identified value into the key to identify the next value
+
+    #first creating a word link(list)
+        #if words is emtpy:
+            #loop thru chains to get a key
+            #words append key and also a random value from chains[key]
+                #now the words is not empty
+        #elif words is not empty:
+            #identify last 2 strings; see if they match a key in the dictionary
+            #choose random value from list of key values 
+            #append random value to words list
     # keep looping until "KeyError"
 
     words = []
 
-    # your code goes here
+    for key in chains:
+        word_one, word_2 = key
+        # words.append(word_one)
+        words.append(word_2)
+        random_value = chains[key]
+        words.append(choice(random_value))
 
-    return " ".join(words)
+    return words
+    # return " ".join(words)
 
 
 input_path = "green-eggs.txt"
