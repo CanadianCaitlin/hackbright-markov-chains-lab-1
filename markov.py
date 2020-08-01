@@ -83,18 +83,26 @@ def make_text(chains):
     # keep looping until "KeyError"
 
     # random.choice(<dictionary>.keys())
+    # list(dictionary.keys())
 
     words = []
-    dict_keys = [i for i in chains.keys()] #a list of all the dictionary keys
+    dict_keys = list(chains.keys()) #a list of all the dictionary keys
     first_key = choice(dict_keys) #first key == a random key from the above list
     word1, word2 = first_key #unpack
     words.append(word1) 
     words.append(word2)
     words.append(choice(chains[first_key])) #append random value from that random key 
-    
-    #identify last 2 strings; see if they match a key in the dictionary
+
+    while True:
+        last_two_words = tuple(words[-2:])  #turn last 2 strings into a tuple
+        if last_two_words in chains:
+            words.append(choice(chains[last_two_words]))
+        else:
+            break
+            #identify last 2 strings; see if they match a key in the dictionary
             #choose random value from list of key values 
             #append random value to words list
+            #else: break
 
 
     # if words == []:
@@ -105,11 +113,11 @@ def make_text(chains):
     #         random_value = chains[key]
     #         words.append(choice(random_value))
 
-    return words
-    # return " ".join(words)
+    # return words
+    return " ".join(words)
 
 
-input_path = "green-eggs.txt"
+input_path = "gettysburg.txt"
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
