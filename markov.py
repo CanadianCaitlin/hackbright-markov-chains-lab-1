@@ -1,7 +1,7 @@
 """Generate Markov text from text files."""
 
 from random import choice
-
+import sys
 
 def open_and_read_file(file_path):
     """Take file path as string; return text as string.
@@ -9,8 +9,6 @@ def open_and_read_file(file_path):
     Takes a string that is a file path, opens the file, and turns
     the file's contents as one string of text.
     """
-
-    # your code goes here
     contents = open(file_path).read()
  
     return contents
@@ -41,6 +39,17 @@ def make_chains(text_string):
         [None]
     """
     # purpose of function: split the string into tuples
+    # chains.get(string_tups,[])
+    # chains[string_tups].append(text_string[i+2])
+
+    #if string_tups is not in the dictionary:
+        #set dictionary[string_tups] = []
+    #else if string_tup is in the dict:
+        #append the value to dictionary[string_tups] (list)
+    
+    # for i in chains.items():
+    #     print(i)
+    # print(chains)
 
     chains = {}
 
@@ -52,17 +61,6 @@ def make_chains(text_string):
         chains[string_tup] = chains.get(string_tup, [])
         chains[string_tup].append(text_string[i+2])
 
-        # chains.get(string_tups,[])
-        # chains[string_tups].append(text_string[i+2])
-
-        #if string_tups is not in the dictionary:
-        #set dictionary[string_tups] = []
-        #else if string_tup is in the dict:
-        #append the value to dictionary[string_tups] (list)
-    
-    # for i in chains.items():
-    #     print(i)
-    # print(chains)
     return chains
 
 
@@ -87,16 +85,37 @@ def make_text(chains):
 
     words = []
     dict_keys = list(chains.keys()) #a list of all the dictionary keys
-    first_key = choice(dict_keys) #first key == a random key from the above list
-    word1, word2 = first_key #unpack
-    words.append(word1) 
-    words.append(word2)
-    words.append(choice(chains[first_key])) #append random value from that random key 
+    while True:
+    
+        first_key = choice(dict_keys) #first key == a random key from the above list
+        word1, word2 = first_key #unpack
+        if word1[0].isupper() == True:
+            words.append(word1)
+            words.append(word2)
+            words.append(choice(chains[first_key])) #append random value from that random key 
+            break
+        else:
+            pass
+    #have a word list that 3 words. 1st word would be a capitalized word
 
     while True:
         last_two_words = tuple(words[-2:])  #turn last 2 strings into a tuple
-        if last_two_words in chains:
+        w1, w2 = last_two_words
+        if w2[-1].isalpha() == False:
+                # if w2[-1] == "?" or w2[-1] == "!" or w2[-1] == ".":
+            break
+            #if last letter of second word is not a letter, break the loop
+        elif last_two_words in chains:
+            # w1, w2 = last_two_words
             words.append(choice(chains[last_two_words]))
+            # if w2[-1].isalpha() is False:
+            #     # if w2[-1] == "?" or w2[-1] == "!" or w2[-1] == ".":
+            #     break
+            # else: 
+            #     pass
+                
+                #adding an elif statement looking for the last letter of the 2nd word of the key
+                     #break
         else:
             break
             #identify last 2 strings; see if they match a key in the dictionary
@@ -117,7 +136,9 @@ def make_text(chains):
     return " ".join(words)
 
 
-input_path = "gettysburg.txt"
+input_path = "green-eggs.txt"
+# input_path = sys.argv[1]
+
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
